@@ -56,15 +56,13 @@ def Bisection_Method(a, b, e, type_of_f):
                 step = step + 1
                 condition = abs(f_derivative(c)) > e
 
-            print(f"check: {f(c)}")
             # Check whether placing the value c in the function f will give us 0 (intersection point)
             if f(round(c, 1)) == 0.0:
                 result.append(c)
 
 
 # Implementing Bisection Method for a long range of values
-def Bisection_Method_Max_Range(min_range, max_range):
-    section = 0.1  # The difference between a section and a section within the range of values
+def Bisection_Method_Max_Range(min_range, max_range, section):
     section_list = []  # List for all entries after distribution into sections
     counter = min_range
 
@@ -102,9 +100,12 @@ if __name__ == "__main__":
 
     a = float(input("Please enter a range for 'a': "))
     b = float(input("Please enter a range for 'b': "))
+    section = float(input("Please select the difference between each section: "))   # The difference between a
+    # section and a section within the range of values
 
-    Bisection_Method_Max_Range(a, b)
+    Bisection_Method_Max_Range(a, b, section)
     print(f"{len(result)} roots were found for the function")
 
     for i, j in enumerate(result):
         print(f"{i + 1}. {j}")
+
