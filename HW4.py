@@ -1,4 +1,7 @@
 # Defining Function
+import math
+
+
 def f(x):
     return x ** 4 + x ** 3 - 3 * x ** 2
 
@@ -9,7 +12,7 @@ def f_derivative(x):
 
 
 # Implementing Bisection Method for a short range of values
-def Bisection_Method(a, b, e, type_of_f):
+def Bisection_Method(a, b, type_of_f):
     # Implementing Bisection Method on f
     if type_of_f == "f":
         # Checking Correctness of initial guess values and bisecting
@@ -19,8 +22,13 @@ def Bisection_Method(a, b, e, type_of_f):
         else:
             step = 1
             condition = True
+            error = - math.log(exp/(b-a)) / math.log(2)
 
             while condition:
+
+                if step > error:
+                    print("The roots cannot be found using the bisection method")
+                    exit(0)
 
                 c = (a + b) / 2
 
@@ -43,8 +51,13 @@ def Bisection_Method(a, b, e, type_of_f):
         else:
             step = 1
             condition = True
+            error = - math.log(exp / (b - a)) / math.log(2)
 
             while condition:
+
+                if step > error:
+                    print("The roots cannot be found using the bisection method")
+                    exit(0)
 
                 c = (a + b) / 2
 
@@ -80,23 +93,24 @@ def Bisection_Method_Max_Range(min_range, max_range, section):
                 if idx < len(section_list) - 2:
 
                     if f(j) * f(section_list[idx + 2]) < 0.0:
-                        Bisection_Method(j, section_list[idx + 2], e, "f")
+                        Bisection_Method(j, section_list[idx + 2], "f")
 
                     if f_derivative(j) * f_derivative(section_list[idx + 2]) < 0.0:
-                        Bisection_Method(j, section_list[idx + 2], e, "f_derivative")
+                        Bisection_Method(j, section_list[idx + 2], "f_derivative")
 
             # Check if f(x1)*f(x2) < 0 for f function
             if f(j) * f(section_list[idx + 1]) < 0.0:
-                Bisection_Method(j, section_list[idx + 1], e, "f")
+                Bisection_Method(j, section_list[idx + 1], "f")
 
             # Check if f(x1)*f(x2) < 0 for f' function
             if f_derivative(j) * f_derivative(section_list[idx + 1]) < 0.0:
-                Bisection_Method(j, section_list[idx + 1], e, "f_derivative")
+                Bisection_Method(j, section_list[idx + 1], "f_derivative")
 
 
 if __name__ == "__main__":
     result = []
     e = 0.0001  # epsilon
+    exp = 10 ** -10
 
     a = float(input("Please enter a range for 'a': "))
     b = float(input("Please enter a range for 'b': "))
